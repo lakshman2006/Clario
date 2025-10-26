@@ -1,113 +1,16 @@
-# Clario Backend
+# React + Vite
 
-A basic FastAPI backend server with RESTful API endpoints.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Features
+Currently, two official plugins are available:
 
-- FastAPI framework with automatic API documentation
-- CORS middleware enabled
-- Health check endpoint
-- CRUD operations for items
-- Pydantic models for data validation
-- Hot reload for development
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Setup
+## React Compiler
 
-### 1. Install Dependencies
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-```bash
-pip install -r requirements.txt
-```
+## Expanding the ESLint configuration
 
-### 2. Run the Server
-
-#### Option 1: Using the runner script
-```bash
-python run_server.py
-```
-
-#### Option 2: Direct uvicorn command
-```bash
-cd .venv/app
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-```
-
-#### Option 3: Using environment variables
-```bash
-# Set custom configuration
-export HOST=0.0.0.0
-export PORT=8000
-export RELOAD=true
-export LOG_LEVEL=info
-
-python run_server.py
-```
-
-## API Endpoints
-
-### Base URLs
-- **API Documentation**: http://localhost:8000/docs
-- **Alternative Docs**: http://localhost:8000/redoc
-- **Health Check**: http://localhost:8000/health
-
-### Available Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/` | Welcome message |
-| GET | `/health` | Health check |
-| GET | `/items` | Get all items |
-| GET | `/items/{item_id}` | Get specific item |
-| POST | `/items` | Create new item |
-| PUT | `/items/{item_id}` | Update item |
-| DELETE | `/items/{item_id}` | Delete item |
-
-### Example Usage
-
-#### Create an item
-```bash
-curl -X POST "http://localhost:8000/items" \
-     -H "Content-Type: application/json" \
-     -d '{"name": "Sample Item", "description": "A test item", "price": 29.99}'
-```
-
-#### Get all items
-```bash
-curl "http://localhost:8000/items"
-```
-
-#### Get specific item
-```bash
-curl "http://localhost:8000/items/1"
-```
-
-## Development
-
-The server runs with hot reload enabled by default, so any changes to the code will automatically restart the server.
-
-## Production Deployment
-
-For production deployment:
-
-1. Set `RELOAD=false` in environment variables
-2. Use a production WSGI server like Gunicorn
-3. Configure proper CORS origins
-4. Add database integration
-5. Implement proper authentication and authorization
-
-### Example Production Command
-```bash
-gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:8000
-```
-
-## Project Structure
-
-```
-Clario/
-├── .venv/
-│   └── app/
-│       └── main.py          # Main FastAPI application
-├── requirements.txt         # Python dependencies
-├── run_server.py           # Server runner script
-└── README.md              # This file
-```
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.

@@ -7,10 +7,10 @@ const Loader = ({ onLoadingComplete }) => {
   const [isComplete, setIsComplete] = useState(false);
 
   const loadingTips = [
-    "Craft your personalized learning path...",
-    "Discover the best resources for you...",
-    "Analyze your available time...",
-    "Optimize your study schedule...",
+    "Craft your personalized learning path",
+    "Discover the best resources for you",
+    "Optimize your study schedule",
+    "Start Learning Now!!!!"
   ];
 
   useEffect(() => {
@@ -69,9 +69,9 @@ const Loader = ({ onLoadingComplete }) => {
                 animate={{
                   scale: [1, 1.1, 1],
                   boxShadow: [
-                    '0 0 20px rgba(121, 78, 131, 0.5)',
+                    '0 0 20px rgba(58, 3, 70, 0.3)',
                     '0 0 40px rgba(121, 78, 131, 0.8)',
-                    '0 0 20px rgba(121, 78, 131, 0.5)'
+                    '0 0 20px rgba(63, 2, 76, 0.2)'
                   ],
                 }}
                 transition={{
@@ -82,7 +82,7 @@ const Loader = ({ onLoadingComplete }) => {
               >
                 {/* Your Website Logo */}
                 <img 
-                  src="/logo.png" 
+                  src="/logo2-removebg-preview.png" 
                   alt="CLARIO" 
                   className="loader-logo"
                 />
@@ -146,26 +146,6 @@ const Loader = ({ onLoadingComplete }) => {
                   {loadingTips[currentTip]}
                 </motion.p>
               </AnimatePresence>
-            </motion.div>
-
-            {/* Animated Dots */}
-            <motion.div className="dots-container">
-              {[0, 1, 2].map((index) => (
-                <motion.div
-                  key={index}
-                  className="dot"
-                  animate={{
-                    y: [0, -10, 0],
-                    opacity: [0.3, 1, 0.3],
-                  }}
-                  transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    delay: index * 0.2,
-                    ease: "easeInOut"
-                  }}
-                />
-              ))}
             </motion.div>
           </div>
         </motion.div>

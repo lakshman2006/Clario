@@ -338,7 +338,7 @@ p {
   margin-left: 1.5rem;
 }
 
-/* ===== NAVBAR ===== */
+/* ===== NAVBAR STYLING ===== */
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -349,19 +349,29 @@ p {
 .nav-logo {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1.5rem;
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-weight: bold;
   color: #330033;
 }
 
+.nav-logo img {
+  height: 50px !important;
+  width: 50px !important;
+}
+
 .nav-items {
   display: flex;
-  gap: 1.5rem;
+  gap: 1rem;
 
+}
+
+.nab-logo-text{
+  font-size: 3rem;
+  font-weight: 800;
 }
 
 .nav-button {
@@ -379,18 +389,21 @@ p {
 .nav-button.active {
   background-color: #330033;
   color: white;
-}
+  box-shadow: 0 0 25px #a7a1f2,
+              0 0 50px#d6cdd6c1,
+              0 0 100px#e1c6dacc; 
+}              
 
 .nav-button:hover {
-  background-color: #360a3690;
+  background-color: #360a36;
   color: white;
 
 }
 
 /* ===== MAIN CONTENT ADJUSTMENT ===== */
 .main-content {
-  padding-top: 30px; 
-  min-height: 100vh;
+  padding-top: 0px; 
+  min-height: 90vh;
   position: relative;
   z-index: 1;
 }
@@ -436,7 +449,7 @@ p {
   }
   
   .main-content {
-    padding-top: 90px;
+    padding-top: 10px;
   }
 }
 
@@ -457,8 +470,8 @@ p {
 }
 
 .btn-primary:hover {
-  box-shadow: 0 0 20px rgba(51, 0, 51, 0.7),
-              0 0 50px rgba(133, 76, 147, 0.37);
+  box-shadow: 0 0 20px rgba(220, 121, 220, 0.408),
+              0 0 50px rgba(178, 114, 194, 0.495);
   transform: translateY(-2px);
 }
 
@@ -469,12 +482,12 @@ p {
 }
 
 .glass-card {
-  background: rgba(203, 103, 228, 0.31);
+  background: rgba(195, 131, 211, 0.199);
   backdrop-filter: blur(25px) saturate(180%);
   border: 3px solid #310131e6;
   border-radius: 20px;
   box-shadow: 0 0 25px #ed82ed73,
-              0 0 50px#c51ac534,
+              0 0 50px#d56dd578,
               0 0 100px#e085e092;         
 }
 
@@ -486,7 +499,7 @@ p {
 
 /* Layout */
 .min-h-screen {
-  min-height: 100vh;
+  min-height: 70vh;
 }
 
 .overflow-hidden {
@@ -983,22 +996,6 @@ tr:hover {
   font-style: italic;
   max-width: 400px;
   text-align: center;
-}
-
-/* Animated Dots */
-.dots-container {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-top: 2rem;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #795e83, #8a6fa0);
-  box-shadow: 0 0 8px rgba(121, 94, 131, 0.4);
 }
 
 /* Floating Background Elements */
@@ -2078,27 +2075,12 @@ tr:hover {
 
 /* ===== ABOUT US PAGE STYLING ===== */
 
-/* Add spacing between sections */
-section {
-  margin-bottom: 6rem !important; /* Increased from 4rem to 6rem */
-}
-
-/* Or be more specific with your section classes */
-.mission-section,
-.features-section,
-.stats-section,
-.team-section,
-.tech-section,
-.cta-section {
-  margin-bottom: 6rem !important;
-}
-
 /* Hero Section */
 .about-hero-title {
   font-size: 4rem;
   font-weight: 800;
   color: #330033;
-  margin-bottom: 1.5rem;
+  margin-bottom: 3rem;
   text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -2106,17 +2088,15 @@ section {
   font-size: 1.4rem;
   color: #330033;
   opacity: 0.8;
-  max-width: 600px;
-  margin: 0 auto;
+  max-width: 400px;
+  margin: 3rem auto;
   line-height: 1.6;
-  margin-bottom: 3rem; /* Add margin to subtitle */
 }
 
 /* Mission Section */
 .mission-card {
-  padding: 3rem;
+  padding: 4rem 3rem;
   text-align: center;
-  margin-bottom: 2rem; /* Add margin to card */
 }
 
 .mission-title {
@@ -2135,102 +2115,268 @@ section {
   margin: 0 auto;
 }
 
-/* Section Titles - Add more spacing */
+/* Section Titles */
 .section-title {
   font-size: 3rem;
   font-weight: 700;
   color: #330033;
-  text-align: center;
-  margin-bottom: 2rem !important; /* Increased margin */
+  margin-bottom: 1rem;
 }
 
 .section-subtitle {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: #330033;
   opacity: 0.8;
-  text-align: center;
-  margin-bottom: 4rem !important; /* Increased margin */
+  margin-bottom: 3rem;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Features Grid - Add spacing */
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem; /* Add top margin */
-}
-
-.feature-card {
-  padding: 2.5rem 2rem;
-  text-align: center;
-  height: 100%;
-  transition: transform 0.3s ease;
-  margin-bottom: 1rem; /* Add bottom margin */
-}
-
-/* Stats Section */
-.stats-card {
-  padding: 3rem;
-  margin-top: 2rem; /* Add top margin */
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-/* Team Section - Add spacing */
+/* Team Section */
 .team-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 3rem auto;
+}
+
+.team-row {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  margin-top: 2rem; /* Add top margin */
+  width: 100%;
+}
+
+.team-member-wrapper {
+  width: 100%;
 }
 
 .team-member-card {
-  padding: 0;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-  margin-bottom: 1rem; /* Add bottom margin */
-}
-
-/* Technology Stack */
-.tech-stack-card {
-  padding: 3rem;
-  margin-top: 2rem; /* Add top margin */
-}
-
-.tech-stack {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
-}
-
-/* Call to Action */
-.cta-card {
-  padding: 4rem 2rem;
-  text-align: center;
-  margin-top: 2rem; /* Add top margin */
-}
-
-/* Add more specific spacing for individual elements if needed */
-.member-info {
-  padding: 2rem;
-  margin-top: 1rem; /* Space between image and info */
-}
-
-.cta-buttons {
+  padding: 2.5rem;
+  height: 100%;
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.team-member-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(51, 0, 51, 0.2);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Member Image/Avatar */
+.member-image-container {
+  margin-bottom: 1.5rem;
+}
+
+.member-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #d9c2e5, #e5d0ff, #f7d8e8);
+  display: flex;
+  align-items: center;
   justify-content: center;
+  margin: 0 auto;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.avatar-text {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #330033;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.member-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.member-image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(217, 194, 229, 0.3), rgba(229, 208, 255, 0.3));
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.member-image-container:hover .member-image-overlay {
+  opacity: 1;
+}
+
+/* Member Info */
+.member-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.member-name {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #330033;
+  margin-bottom: 0.5rem;
+}
+
+.member-role {
+  font-size: 1.1rem;
+  color: #330033;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.member-bio {
+  color: #330033;
+  opacity: 0.8;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+/* Skills */
+.member-skills {
+  display: flex;
   flex-wrap: wrap;
-  margin-top: 2rem; /* Space above buttons */
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.skill-tag {
+  background: rgba(51, 0, 51, 0.1);
+  color: #330033;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid rgba(51, 0, 51, 0.2);
+  transition: all 0.3s ease;
+}
+
+.skill-tag:hover {
+  background: rgba(51, 0, 51, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Social Links */
+.member-social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 45px;
+  height: 45px;
+  background: rgba(51, 0, 51, 0.1);
+  border-radius: 50%;
+  color: #330033;
+  text-decoration: none;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.social-link:hover {
+  background: #330033;
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(51, 0, 51, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .about-hero-title {
+    font-size: 3rem;
+  }
+  
+  .section-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .team-row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .team-grid {
+    gap: 1.5rem;
+  }
+  
+  .about-hero-title {
+    font-size: 2.5rem;
+  }
+  
+  .about-hero-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .mission-card {
+    padding: 2.5rem 2rem;
+  }
+  
+  .mission-title {
+    font-size: 2rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .team-member-card {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero-title {
+    font-size: 2rem;
+  }
+  
+  .mission-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .team-member-card {
+    padding: 1.5rem;
+  }
+  
+  .member-avatar {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .avatar-text {
+    font-size: 1.5rem;
+  }
+  
+  .member-name {
+    font-size: 1.5rem;
+  }
 }
 
 

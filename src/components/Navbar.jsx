@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -57,8 +58,8 @@ const Navbar = () => {
             className="nav-logo"
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
-            <img src="/logo.png" alt="CLARIO" className="h-10 w-10" />
-            <span className="text-2xl font-bold">CLARIO</span>
+            <img src="/logo2-removebg-preview.png" alt="CLARIO" className="h-15 w-15" />
+            <span className="nav-logo-text">CLARIO</span>
           </motion.button>
 
           <div className="nav-items">

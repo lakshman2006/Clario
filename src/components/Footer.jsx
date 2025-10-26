@@ -35,7 +35,7 @@ const Footer = () => {
               onClick={() => navigate('/')}
               className="footer-logo"
             >
-              <img src="/logo.png" alt="CLARIO" className="footer-logo-img" />
+              <img src="/logo2-removebg-preview.png" alt="CLARIO" className="footer-logo-img" />
               <span className="footer-logo-text">CLARIO</span>
             </motion.button>
             <p className="footer-description">
