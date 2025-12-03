@@ -1,17 +1,48 @@
 # Clario Backend
 
-A basic FastAPI backend server with RESTful API endpoints.
+A FastAPI-based backend application for Clario, featuring ML-powered learning resource recommendations and Google OAuth2 authentication.
 
 ## Features
 
-- FastAPI framework with automatic API documentation
-- CORS middleware enabled
-- Health check endpoint
-- CRUD operations for items
-- Pydantic models for data validation
-- Hot reload for development
+- **ML-Powered Recommendations**: TF-IDF and cosine similarity-based learning resource recommendations
+- **Google OAuth2 Authentication**: Secure authentication using Google OAuth2
+- **RESTful API**: Clean, well-documented API endpoints
+- **Database Integration**: SQLite database with flexible raw SQL queries
+- **Real-time Ready**: Architecture ready for real-time features
 
-## Setup
+## Project Structure
+
+```
+backend/
+├── app/
+│   ├── main.py                       # FastAPI entry point
+│   ├── config.py                     # Configuration settings
+│   ├── routes/
+│   │   ├── __init__.py
+│   │   ├── auth_routes.py            # Authentication endpoints
+│   │   ├── user_routes.py            # User management endpoints
+│   │   ├── ml_routes.py              # ML recommendation endpoints
+│   │   ├── system_routes.py          # System health and status
+│   │   └── routes.py                 # Main router
+│   ├── ml/                           # ML package
+│   │   ├── __init__.py
+│   │   ├── recommender.py            # Core recommendation logic
+│   │   ├── preprocess.py             # NLP preprocessing utilities
+│   │   ├── model/                    # Saved ML models
+│   │   ├── data/                     # ML datasets
+│   │   ├── utils/                    # ML utilities
+│   │   └── tests/                    # ML tests
+│   ├── services/
+│   │   └── auth_service.py           # Authentication service
+│   ├── utils/
+│   │   └── db_utils.py               # Database utilities
+│   └── schemas/
+│       └── ml_schema.py              # Pydantic models
+├── requirements.txt
+└── README.md
+```
+
+## Setup Instructions
 
 ### 1. Install Dependencies
 
@@ -19,95 +50,169 @@ A basic FastAPI backend server with RESTful API endpoints.
 pip install -r requirements.txt
 ```
 
-### 2. Run the Server
+### 2. Environment Configuration
 
-#### Option 1: Using the runner script
-```bash
-python run_server.py
+Create a `.env` file in the project root with the following variables:
+
+```env
+# Application Configuration
+DEBUG=True
+LOG_LEVEL=INFO
+
+# Database Configuration
+DATABASE_URL=app/data/clario.db
+
+# ML Configuration
+ML_DATA_DIR=app/ml/data
+ML_MODEL_DIR=app/ml/model
+
+# Google OAuth2 Configuration
+GOOGLE_CLIENT_ID=your_google_client_id_here
+GOOGLE_CLIENT_SECRET=your_google_client_secret_here
+GOOGLE_REDIRECT_URI=http://localhost:8000/api/v1/auth/google/callback
+
+# JWT Configuration
+JWT_SECRET_KEY=your-secret-key-change-in-production
+JWT_ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
-#### Option 2: Direct uvicorn command
+### 3. Google OAuth2 Setup
+
+1. Go to [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project or select an existing one
+3. Enable the Google+ API
+4. Create credentials (OAuth 2.0 Client ID)
+5. Add authorized redirect URIs:
+   - `http://localhost:8000/api/v1/auth/google/callback` (development)
+   - Your production callback URL
+6. Copy the Client ID and Client Secret to your `.env` file
+
+### 4. Run the Application
+
 ```bash
-cd .venv/app
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+# Development mode
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+# Production mode
+uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
-#### Option 3: Using environment variables
-```bash
-# Set custom configuration
-export HOST=0.0.0.0
-export PORT=8000
-export RELOAD=true
-export LOG_LEVEL=info
+## API Documentation
 
-python run_server.py
-```
+Once the application is running, you can access:
 
-## API Endpoints
-
-### Base URLs
 - **API Documentation**: http://localhost:8000/docs
 - **Alternative Docs**: http://localhost:8000/redoc
 - **Health Check**: http://localhost:8000/health
 
-### Available Endpoints
+## API Endpoints
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | `/` | Welcome message |
-| GET | `/health` | Health check |
-| GET | `/items` | Get all items |
-| GET | `/items/{item_id}` | Get specific item |
-| POST | `/items` | Create new item |
-| PUT | `/items/{item_id}` | Update item |
-| DELETE | `/items/{item_id}` | Delete item |
+### Authentication
+- `GET /api/v1/auth/google/login` - Initiate Google OAuth2 login
+- `GET /api/v1/auth/google/callback` - Handle Google OAuth2 callback
+- `POST /api/v1/auth/logout` - Logout user
+- `GET /api/v1/auth/me` - Get current user info
 
-### Example Usage
+### Users
+- `GET /api/v1/users/profile` - Get user profile
+- `PUT /api/v1/users/profile` - Update user profile
+- `GET /api/v1/users/preferences` - Get user preferences
+- `PUT /api/v1/users/preferences` - Update user preferences
 
-#### Create an item
+### ML Recommendations
+- `GET /api/v1/ml/recommendations` - Get learning resource recommendations
+- `GET /api/v1/ml/recommendations/by-type` - Get recommendations by resource type
+- `GET /api/v1/ml/resource-types` - Get available resource types
+- `POST /api/v1/ml/recommendations` - Get recommendations (POST method)
+
+### System
+- `GET /api/v1/system/health` - Basic health check
+- `GET /api/v1/system/status` - Detailed system status
+- `GET /api/v1/system/metrics` - System metrics
+
+## Testing
+
+Run the ML tests:
+
 ```bash
-curl -X POST "http://localhost:8000/items" \
-     -H "Content-Type: application/json" \
-     -d '{"name": "Sample Item", "description": "A test item", "price": 29.99}'
+# Run all tests
+pytest app/ml/tests/
+
+# Run specific test file
+pytest app/ml/tests/test_recommender.py
+
+# Run with verbose output
+pytest app/ml/tests/test_recommender.py -v
 ```
 
-#### Get all items
+## ML System
+
+The ML system uses:
+
+- **TF-IDF Vectorization**: For text preprocessing
+- **Cosine Similarity**: For recommendation scoring
+- **scikit-learn**: For ML operations
+- **pandas**: For data handling
+
+### Adding New Resources
+
+To add new learning resources, update the `app/ml/data/resources.csv` file with:
+
+```csv
+id,title,type,description,url
+11,"New Course Title","course","Course description","https://example.com/course"
+```
+
+The system will automatically retrain when new data is added.
+
+## Deployment
+
+### Vercel Deployment
+
+1. Install Vercel CLI:
 ```bash
-curl "http://localhost:8000/items"
+npm i -g vercel
 ```
 
-#### Get specific item
+2. Create `vercel.json` configuration:
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "main.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "main.py"
+    }
+  ]
+}
+```
+
+3. Deploy:
 ```bash
-curl "http://localhost:8000/items/1"
+vercel --prod
 ```
 
-## Development
+## Development Notes
 
-The server runs with hot reload enabled by default, so any changes to the code will automatically restart the server.
+- The system is designed to be flexible and easily extensible
+- Database operations use raw SQL for better control
+- ML models are automatically saved and loaded
+- Error handling is comprehensive with proper logging
+- CORS is configured for frontend integration
 
-## Production Deployment
+## Contributing
 
-For production deployment:
+1. Follow the existing code structure
+2. Add tests for new functionality
+3. Update documentation as needed
+4. Ensure all tests pass before submitting
 
-1. Set `RELOAD=false` in environment variables
-2. Use a production WSGI server like Gunicorn
-3. Configure proper CORS origins
-4. Add database integration
-5. Implement proper authentication and authorization
+## License
 
-### Example Production Command
-```bash
-gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:8000
-```
-
-## Project Structure
-
-```
-Clario/
-├── .venv/
-│   └── app/
-│       └── main.py          # Main FastAPI application
-├── requirements.txt         # Python dependencies
-├── run_server.py           # Server runner script
-└── README.md              # This file
-```
+This project is part of the Clario learning platform.
