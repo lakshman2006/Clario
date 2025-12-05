@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { authenticatedRequest, isAuthenticated, removeToken } from '../utils/auth';
 import GlassCard from '../components/GlassCard';
 
 // Import icons (you can use react-icons library or your own icon components)
@@ -34,23 +35,26 @@ const Profile = () => {
   const fetchUserProfile = async () => {
     try {
       setIsLoading(true);
-      const response = await fetch('http://localhost:5000/api/user/profile', {
+      const response = await fetch('http://localhost:8000/api/v1/users/profile', {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
           'Content-Type': 'application/json',
         },
       });
 
       if (!response.ok) {
-        throw new Error('Failed to fetch user profile');
+        throw new Error('Failed to fetch profile');
       }
 
       const userData = await response.json();
-      setUser(userData);
+      setUser(userData.data);
     } catch (err) {
       setError('Failed to load profile data');
       console.error('Error fetching user profile:', err);
+      if (err.message.includes('Not authenticated') || err.message.includes('401')) {
+        window.location.href = '/login';
+      }
     } finally {
       setIsLoading(false);
     }
@@ -59,10 +63,10 @@ const Profile = () => {
   // Fetch user's saved schedules from backend
   const fetchUserSchedules = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/user/schedules', {
+      const response = await fetch('http://localhost:8000/api/v1/schedules/', {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
           'Content-Type': 'application/json',
         },
       });
@@ -72,7 +76,7 @@ const Profile = () => {
       }
 
       const schedulesData = await response.json();
-      setSavedSchedules(schedulesData);
+      setSavedSchedules(schedulesData.data || []);
     } catch (err) {
       console.error('Error fetching schedules:', err);
       setSavedSchedules([]);
@@ -82,10 +86,10 @@ const Profile = () => {
   // Update user profile
   const updateUserProfile = async (updatedData) => {
     try {
-      const response = await fetch('http://localhost:5000/api/user/profile', {
+      const response = await fetch('http://localhost:8000/api/v1/users/profile', {
         method: 'PUT',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(updatedData),
@@ -106,10 +110,10 @@ const Profile = () => {
   // Delete a schedule
   const deleteSchedule = async (scheduleId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/schedules/${scheduleId}`, {
+      const response = await fetch(`http://localhost:8000/api/v1/schedules/${scheduleId}`, {
         method: 'DELETE',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
         },
       });
 
@@ -125,17 +129,35 @@ const Profile = () => {
   };
 
   // Load data on component mount
+  // Check authentication on component mount
   useEffect(() => {
+    if (!isAuthenticated()) {
+      window.location.href = '/login';
+      return;
+    }
     fetchUserProfile();
     fetchUserSchedules();
   }, []);
 
-  const handleSaveProfile = async (updatedUser) => {
+  const handleLogout = async () => {
     try {
-      await updateUserProfile(updatedUser);
-      setIsEditing(false);
-    } catch (err) {
-      setError('Failed to save profile changes');
+      // Call backend logout endpoint
+      const token = localStorage.getItem('access_token');
+      if (token) {
+        await fetch('http://localhost:8000/api/v1/auth/logout', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+    } finally {
+      // Always remove token and redirect
+      removeToken();
+      window.location.href = '/login';
     }
   };
 
@@ -173,8 +195,25 @@ const Profile = () => {
     >
       <div className="container">
         <div className="profile-header">
-          <h1 className="profile-main-title">Your Profile</h1>
-          <p className="profile-subtitle">Manage your account and view your learning history</p>
+          <div>
+            <h1 className="profile-main-title">Your Profile</h1>
+            <p className="profile-subtitle">Manage your account and view your learning history</p>
+          </div>
+          <button 
+            onClick={handleLogout}
+            className="logout-btn"
+            style={{
+              padding: '0.5rem 1rem',
+              backgroundColor: '#ff6b6b',
+              color: 'white',
+              border: 'none',
+              borderRadius: '0.5rem',
+              cursor: 'pointer',
+              fontSize: '0.9rem'
+            }}
+          >
+            Logout
+          </button>
         </div>
 
         {/* Error Message */}
@@ -535,9 +574,9 @@ const SettingsTab = ({ user }) => {
   useEffect(() => {
     const loadSettings = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/user/settings', {
+        const response = await fetch('http://localhost:8000/api/v1/users/preferences', {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
           },
         });
         if (response.ok) {
@@ -558,10 +597,10 @@ const SettingsTab = ({ user }) => {
   const saveSettings = async () => {
     setIsSaving(true);
     try {
-      const response = await fetch('http://localhost:5000/api/user/settings', {
+      const response = await fetch('http://localhost:8000/api/v1/users/preferences', {
         method: 'PUT',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(settings),

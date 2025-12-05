@@ -118,6 +118,21 @@ const BookCarousel = ({ books }) => {
                 <h3 className="book-title">{book.title}</h3>
                 <p className="book-author">by {book.author}</p>
                 
+                {/* Book Details */}
+                <div className="book-details">
+                  {book.genre && (
+                    <span className="book-genre">{book.genre}</span>
+                  )}
+                  {book.difficulty_level && (
+                    <span className={`book-difficulty difficulty-${book.difficulty_level.toLowerCase()}`}>
+                      {book.difficulty_level}
+                    </span>
+                  )}
+                  {book.publication_year && (
+                    <span className="book-year">{book.publication_year}</span>
+                  )}
+                </div>
+                
                 {/* Rating Stars */}
                 <div className="book-rating">
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -130,6 +145,40 @@ const BookCarousel = ({ books }) => {
                   ))}
                   <span className="rating-text">{(book.rating || 4).toFixed(1)}</span>
                 </div>
+                
+                {/* Price and Links */}
+                <div className="book-actions">
+                  {book.price && (
+                    <span className="book-price">{book.price}</span>
+                  )}
+                  {book.amazon_url && (
+                    <a 
+                      href={book.amazon_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="book-link amazon-link"
+                    >
+                      Amazon
+                    </a>
+                  )}
+                  {book.goodreads_url && (
+                    <a 
+                      href={book.goodreads_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="book-link goodreads-link"
+                    >
+                      Goodreads
+                    </a>
+                  )}
+                </div>
+                
+                {/* Similarity Score (for recommendations) */}
+                {book.similarity_score && (
+                  <div className="similarity-score">
+                    Match: {(book.similarity_score * 100).toFixed(1)}%
+                  </div>
+                )}
               </div>
             </GlassCard>
           </motion.div>

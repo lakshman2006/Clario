@@ -5,9 +5,11 @@ import Navbar from './components/Navbar';
 import ImageBackground from './components/ImageBackground';
 import Loader from './components/Loader';
 import Footer from './components/Footer';
+import ProtectedRoute from './components/ProtectedRoute';
 import MainPage from './pages/MainPage';
 import BookRecommendations from './pages/BookRecommendations';
 import Login from './pages/Login';
+import OAuthCallback from './pages/OAuthCallback';
 import AboutUs from './pages/AboutUs';
 import ScheduleMaker from './pages/ScheduleMaker';
 import Profile from './pages/Profile'; 
@@ -53,6 +55,17 @@ function AnimatedRoutes() {
             <MainPage />
           </motion.div>
         } />
+        <Route path="/auth/callback" element={
+          <motion.div
+            initial="initial"
+            animate="in"
+            exit="out"
+            variants={pageVariants}
+            transition={pageTransition}
+          >
+            <OAuthCallback />
+          </motion.div>
+        } />
         <Route path="/books" element={
           <motion.div
             initial="initial"
@@ -87,27 +100,30 @@ function AnimatedRoutes() {
           </motion.div>
         } />
         <Route path="/schedule" element={
-          <motion.div
-            initial="initial"
-            animate="in"
-            exit="out"
-            variants={pageVariants}
-            transition={pageTransition}
-          >
-            <ScheduleMaker />
-          </motion.div>
+          <ProtectedRoute>
+            <motion.div
+              initial="initial"
+              animate="in"
+              exit="out"
+              variants={pageVariants}
+              transition={pageTransition}
+            >
+              <ScheduleMaker />
+            </motion.div>
+          </ProtectedRoute>
         } />
-        {/* ADD THE PROFILE ROUTE */}
         <Route path="/profile" element={
-          <motion.div
-            initial="initial"
-            animate="in"
-            exit="out"
-            variants={pageVariants}
-            transition={pageTransition}
-          >
-            <Profile />
-          </motion.div>
+          <ProtectedRoute>
+            <motion.div
+              initial="initial"
+              animate="in"
+              exit="out"
+              variants={pageVariants}
+              transition={pageTransition}
+            >
+              <Profile />
+            </motion.div>
+          </ProtectedRoute>
         } />
       </Routes>
     </AnimatePresence>

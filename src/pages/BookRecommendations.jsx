@@ -16,18 +16,41 @@ const BookRecommendations = () => {
     { value: 'Physical', label: 'Physical' }
   ];
 
-  const handleSearch = () => {
+  const handleSearch = async () => {
     if (searchQuery.trim() === '') {
       setBooks(sampleBooks);
       return;
     }
-
-    const filteredBooks = sampleBooks.filter(book => 
-      book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      book.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      book.format.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setBooks(filteredBooks);
+    try {
+      // Use the new book recommendation API
+      const res = await fetch(`http://localhost:8000/api/v1/books/recommendations?topic=${encodeURIComponent(searchQuery)}&top_k=8`);
+      if (!res.ok) throw new Error('Failed to get book recommendations');
+      const data = await res.json();
+      
+      // Map the book data to the frontend format
+      const mapped = (data?.data || []).map((book, i) => ({
+        id: book.id,
+        title: book.title,
+        author: book.author,
+        format: 'eBook', // Default format
+        cover: '/logo.png', // Default cover
+        description: book.description,
+        rating: book.rating,
+        price: book.price,
+        genre: book.genre,
+        difficulty_level: book.difficulty_level,
+        amazon_url: book.amazon_url,
+        goodreads_url: book.goodreads_url,
+        publication_year: book.publication_year,
+        pages: book.pages,
+        similarity_score: book.similarity_score
+      }));
+      
+      setBooks(mapped.length ? mapped : sampleBooks);
+    } catch (e) {
+      console.error('Book search error:', e);
+      setBooks(sampleBooks);
+    }
   };
 
   const filteredBooks = selectedFormat === 'all' 

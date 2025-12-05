@@ -2199,6 +2199,27 @@ section {
   margin-bottom: 1rem; /* Add bottom margin */
 }
 
+/* Team member image layout */
+.member-image-container {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* square avatar area */
+  overflow: hidden;
+  position: relative;
+}
+
+.member-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* crop to fit card instead of stretching */
+  display: block;
+}
+
+.member-image-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
 /* Technology Stack */
 .tech-stack-card {
   padding: 3rem;

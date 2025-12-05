@@ -4,7 +4,7 @@ import GlassCard from '../components/GlassCard';
 import { 
   FaLinkedin, 
   FaGithub, 
-  FaTwitter, 
+  FaInstagram,
   FaEnvelope,
   FaRocket,
   FaUsers,
@@ -20,59 +20,59 @@ const AboutUs = () => {
   const teamMembers = [
     {
       id: 1,
-      name: 'Alex Johnson',
-      role: 'Frontend Developer & UI/UX Designer',
-      bio: 'Passionate about creating beautiful and intuitive user interfaces. Loves React and modern web technologies.',
-      image: '/team/alex-johnson.jpg', // Replace with your image path
+      name: 'S.Lakshman',
+      role: 'Backend Developer , Machine Learning , Team Lead',
+      bio: '-',
+      image: 'lakshman_profile.jpeg', // Replace with your image path
       social: {
-        linkedin: 'https://linkedin.com/in/alexjohnson',
-        github: 'https://github.com/alexjohnson',
-        twitter: 'https://twitter.com/alexjohnson',
-        email: 'alex@clario.com'
+        linkedin: '-',
+        github: '-',
+        instagram: '-',
+        email: '-'
       },
-      skills: ['React', 'TypeScript', 'Framer Motion', 'UI/UX Design']
+      skills: ['Python, FastAPI, Machine Learning, Team Management']
     },
     {
       id: 2,
-      name: 'Sarah Chen',
-      role: 'Backend Developer & AI Specialist',
-      bio: 'Expert in building scalable backend systems and implementing machine learning algorithms for personalized learning.',
-      image: '/team/sarah-chen.jpg', // Replace with your image path
+      name: 'Anjana M',
+        role: 'Frontend Developer',
+        bio: '-',
+      image: 'anjana_profile.jpeg', // Replace with your image path
       social: {
-        linkedin: 'https://linkedin.com/in/sarahchen',
-        github: 'https://github.com/sarahchen',
-        twitter: 'https://twitter.com/sarahchen',
-        email: 'sarah@clario.com'
+        linkedin: 'https://www.linkedin.com/in/anjanamuthusamy?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+        github: 'https://github.com/Anjana2707',
+        instagram: 'https://www.instagram.com/_an2an7_/',
+        email: 'anjana.muthusamy27@gmail.com'
       },
-      skills: ['Node.js', 'Python', 'Machine Learning', 'Database Design']
+      skills: ['HTML , CSS , JavaScript , React']
     },
     {
       id: 3,
-      name: 'Mike Rodriguez',
-      role: 'Full Stack Developer',
-      bio: 'Enjoys solving complex problems and building end-to-end solutions. Passionate about clean code and best practices.',
-      image: '/team/mike-rodriguez.jpg', // Replace with your image path
+      name: 'Banshika',
+      role: 'Designer',
+      bio: '-',
+      image: 'banshika_profile.jpeg', // Replace with your image path
       social: {
-        linkedin: 'https://linkedin.com/in/mikerodriguez',
-        github: 'https://github.com/mikerodriguez',
-        twitter: 'https://twitter.com/mikerodriguez',
-        email: 'mike@clario.com'
+        linkedin: 'https://www.linkedin.com/in/banshika-chowdhury-910568327/',
+        github: 'https://github.com/bchowdhury07',
+        instagram: 'https://www.instagram.com/banshikaa_07/',
+        email: 'banshikachowdhuryb@gmail.com'
       },
-      skills: ['JavaScript', 'React', 'Node.js', 'AWS', 'DevOps']
+      skills: ['Figma , Canva']
     },
     {
       id: 4,
-      name: 'Emily Davis',
-      role: 'Product Manager & Learning Strategist',
-      bio: 'Combines technical knowledge with educational expertise to create meaningful learning experiences for users.',
-      image: '/team/emily-davis.jpg', // Replace with your image path
+      name: 'S.Lohith',
+      role: 'Database and Git',
+      bio: '-',
+      image: 'lohith_profile.jpeg', // Replace with your image path
       social: {
-        linkedin: 'https://linkedin.com/in/emilydavis',
-        github: 'https://github.com/emilydavis',
-        twitter: 'https://twitter.com/emilydavis',
-        email: 'emily@clario.com'
+        linkedin: '-',
+        github: 'https://github.com/lohith032k',
+        instagram: '-',
+        email: 'lohith9j1@gmail.com'
       },
-      skills: ['Product Strategy', 'User Research', 'EdTech', 'Data Analysis']
+      skills: ['Database , Git']
     }
   ];
 
@@ -134,20 +134,7 @@ const AboutUs = () => {
           </motion.p>
         </section>
 
-        {/* Mission Section */}
-        <section className="mb-16">
-          <GlassCard className="mission-card">
-            <div className="mission-content">
-              <h2 className="mission-title">Our Mission</h2>
-              <p className="mission-text">
-                At CLARIO, we believe that everyone deserves access to personalized, effective learning experiences. 
-                Our platform combines artificial intelligence with educational expertise to create custom learning paths 
-                that adapt to your goals, schedule, and learning style. We're committed to making quality education 
-                accessible to all.
-              </p>
-            </div>
-          </GlassCard>
-        </section>
+      
 
 
         {/* Team Section */}
@@ -200,8 +187,8 @@ const AboutUs = () => {
                       <a href={member.social.github} className="social-link" aria-label="GitHub">
                         <FaGithub />
                       </a>
-                      <a href={member.social.twitter} className="social-link" aria-label="Twitter">
-                        <FaTwitter />
+                      <a href={member.social.instagram} className="social-link" aria-label="Instagram">
+                        <FaInstagram />
                       </a>
                       <a href={`mailto:${member.social.email}`} className="social-link" aria-label="Email">
                         <FaEnvelope />
