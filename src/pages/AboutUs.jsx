@@ -23,7 +23,7 @@ const AboutUs = () => {
       name: 'S.Lakshman',
       role: 'Backend Developer , Machine Learning , Team Lead',
       bio: '-',
-      image: 'lakshman_profile.jpeg', // Replace with your image path
+      image: '/lakshman_profile.jpeg',
       social: {
         linkedin: '-',
         github: '-',
@@ -37,7 +37,7 @@ const AboutUs = () => {
       name: 'Anjana M',
         role: 'Frontend Developer',
         bio: '-',
-      image: 'anjana_profile.jpeg', // Replace with your image path
+      image: '/anjana_profile.jpeg',
       social: {
         linkedin: 'https://www.linkedin.com/in/anjanamuthusamy?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
         github: 'https://github.com/Anjana2707',
@@ -51,7 +51,7 @@ const AboutUs = () => {
       name: 'Banshika',
       role: 'Designer',
       bio: '-',
-      image: 'banshika_profile.jpeg', // Replace with your image path
+      image: '/banshika_profile.jpeg',
       social: {
         linkedin: 'https://www.linkedin.com/in/banshika-chowdhury-910568327/',
         github: 'https://github.com/bchowdhury07',
@@ -65,7 +65,7 @@ const AboutUs = () => {
       name: 'S.Lohith',
       role: 'Database and Git',
       bio: '-',
-      image: 'lohith_profile.jpeg', // Replace with your image path
+      image: '/lohith_profile.jpeg',
       social: {
         linkedin: '-',
         github: 'https://github.com/lohith032k',
